@@ -20,8 +20,16 @@ def preprocessing(data: str):
 
     # 4. Identificação e Tratamento de Problemas
     # a) Dados Faltantes
-    # Não temos valores nulos. A parte do código que checa isso foi removida.
-    # O gráfico disso permanece em graphs/
+    print("\n=== DADOS FALTANTES ===\n")
+    print("Quantidade de valores nulos por coluna:")
+    print(df.isnull().sum())
+
+    # Visualização gráfica dos dados faltantes
+    plt.figure(figsize=(10, 6))
+    sns.heatmap(df.isnull(), cbar=False, cmap='viridis')
+    plt.title("Mapa de Valores Nulos no Dataset")
+    plt.savefig("graphs/preprocessing/null_map.png")
+    plt.close()
 
     # b) Identificação de Outliers
     print("\n=== OUTLIERS ===\n")
