@@ -1,0 +1,8 @@
+Model #1 KNN
+    K=12
+        MAE: 7439.75
+        RMSE: 10376.70
+        R²: 0.79
+
+
+# Model #2 Random Forest

@@ -15,12 +15,12 @@ def train_knn_model(df: pd.DataFrame):
         df (pd.DataFrame): Preprocessed dataset including the target column 'price'.
     """
     # Categorical columns to encode
-    categorical_cols = ["airline", "flight", "route_combined", "class"]
+    categorical_cols: list = ["airline", "route_combined", "class"]
     # One-hot encode categorical variables
     df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
 
     # Features and target
-    X = df.drop(columns=["price"])
+    X = df.drop(columns=["price", "Unnamed: 0"], errors="ignore")
     y = df["price"]
 
     # Split the data (80% train, 20% test)
@@ -28,12 +28,12 @@ def train_knn_model(df: pd.DataFrame):
         X,
         y,
         test_size=0.2,
-        random_state=42
+        random_state=30
     )
 
     # Initialize the KNN regressor. k=5.
     knn = KNeighborsRegressor(
-        n_neighbors=5
+        n_neighbors=12
     )
     knn.fit(X_train, y_train)
 
@@ -41,9 +41,9 @@ def train_knn_model(df: pd.DataFrame):
     y_pred = knn.predict(X_test)
 
     # Evaluate the model
-    mae = mean_absolute_error(y_test, y_pred)
-    rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-    r2 = r2_score(y_test, y_pred)
+    mae: float = mean_absolute_error(y_test, y_pred)
+    rmse: float = np.sqrt(mean_squared_error(y_test, y_pred))
+    r2: float = r2_score(y_test, y_pred)
 
     # Print evaluation metrics
     print(f"MAE: {mae:.2f}")

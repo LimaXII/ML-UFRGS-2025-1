@@ -1,4 +1,3 @@
-import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -17,22 +16,12 @@ def detect_outliers(col):
 
 
 def preprocessing(data: str):
-    matplotlib.use('Agg')
     df = pd.read_csv(data)
 
     # 4. Identificação e Tratamento de Problemas
-
     # a) Dados Faltantes
-    print("\n=== DADOS FALTANTES ===\n")
-    print("Quantidade de valores nulos por coluna:")
-    print(df.isnull().sum())
-
-    # Visualização gráfica dos dados faltantes
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(df.isnull(), cbar=False, cmap='viridis')
-    plt.title("Mapa de Valores Nulos no Dataset")
-    plt.savefig("graphs/preprocessing/null_map.png")
-    plt.close()
+    # Não temos valores nulos. A parte do código que checa isso foi removida.
+    # O gráfico disso permanece em graphs/
 
     # b) Identificação de Outliers
     print("\n=== OUTLIERS ===\n")
@@ -82,7 +71,7 @@ def preprocessing(data: str):
     df['route_combined'] = df['source_city'] + '-' + df['destination_city']
 
     # Converter stops para numérico (se necessário)
-    stop_mapping = {
+    stop_mapping: dict = {
         'zero': 0,
         'one': 1,
         'two_or_more': 2,
@@ -145,23 +134,20 @@ def preprocessing(data: str):
     print(df[df['price'] <= 0]
           [['airline', 'source_city', 'destination_city', 'price']])
 
-    # ### g) Remoção de Colunas Problemáticas
-    # print("\n=== REMOÇÃO DE COLUNAS ===\n")
+    # g) Remoção de Colunas Problemáticas
+    print("\n=== REMOÇÃO DE COLUNAS ===\n")
 
     # # Colunas que podem ser removidas após processamento
-    # cols_to_drop = ['flight']  # Exemplo - coluna de ID do voo pode não ser útil
-    # print(f"Colunas a serem removidas: {cols_to_drop}")
-    # df.drop(columns=cols_to_drop, inplace=True, errors='ignore')
+    cols_to_drop: list = ["departure_time", "arrival_time", "stops",
+                          "source_city", "destination_city", "flight", "price_normalized"]
+    print(f"Colunas a serem removidas: {cols_to_drop}")
+    df.drop(columns=cols_to_drop, inplace=True)
 
-    # print("\nEstrutura final do DataFrame:")
-    # print(df.info())
+    print("\nEstrutura final do DataFrame:")
+    print(df.info())
 
-    # ### h) Salvando o DataFrame processado
-    # df.to_csv('flights_data_processed.csv', index=False)
-    # print("\nDataFrame processado salvo como 'flights_data_processed.csv'")
-
-    # Remove as colunas originais que não são mais necessárias
-    df.drop(columns=["departure_time", "arrival_time", "stops",
-            "source_city", "destination_city"], inplace=True)
+    # h) Salvando o DataFrame processado
+    df.to_csv('data/flights_data_processed.csv', index=False)
+    print("\nDataFrame processado salvo como 'flights_data_processed.csv'")
 
     return df
