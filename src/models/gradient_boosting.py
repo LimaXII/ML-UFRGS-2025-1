@@ -1,0 +1,82 @@
+
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
+
+
+def train_gradient_boosting_model(df: pd.DataFrame):
+    """
+    Train a Gradient Boosting Regressor model on a preprocessed DataFrame.
+
+    Args:
+        df (pd.DataFrame): Dataset já pré-processado, que incluí a coluna que deve ser predita, 'price'.
+    """
+    # Colunas com valores categóricos.
+    categorical_cols: list = ["airline", "route_combined", "class"]
+    # One-hot encode para dados categóricos.
+    df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
+
+    X = df.drop(columns=["price", "Unnamed: 0"], errors="ignore")
+    # Converte os valores de 'price' com log, para normalizar a resposta.
+    y = np.log1p(df["price"])
+
+    # Separa os dados (80% treino, 20% teste)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=30
+    )
+
+    # Inicializa o modelo de Gradient Boosting
+    gbr = GradientBoostingRegressor(
+        n_estimators=100,
+        learning_rate=0.1,
+        max_depth=3,
+        random_state=30
+    )
+    gbr.fit(X_train, y_train)
+
+    # Realiza as predições.
+    y_pred_log = gbr.predict(X_test)
+    y_pred = np.expm1(y_pred_log)
+    y_test_real = np.expm1(y_test)
+
+    # Avalia o modelo.
+    mae: float = mean_absolute_error(y_test_real, y_pred)
+    rmse: float = np.sqrt(mean_squared_error(y_test_real, y_pred))
+    r2: float = r2_score(y_test_real, y_pred)
+
+    print(f"MAE: {mae:.2f}")
+    print(f"RMSE: {rmse:.2f}")
+    print(f"R²: {r2:.2f}")
+
+    # Plot 1: Valor Real x Valor predito.
+    plt.figure(figsize=(8, 6))
+    sns.scatterplot(x=y_test_real, y=y_pred, alpha=0.6)
+    plt.plot(
+        [y_test_real.min(), y_test_real.max()],
+        [y_test_real.min(), y_test_real.max()],
+        'r--'
+    )
+    plt.xlabel("Actual Price")
+    plt.ylabel("Predicted Price")
+    plt.title("Actual vs Predicted Prices (Gradient Boosting)")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig("graphs/gradient_boosting/actual_vs_predicted.png")
+    plt.close()
+
+    # Plot 2: Valor residual x Valor Predito.
+    residuals = y_test_real - y_pred
+    plt.figure(figsize=(8, 6))
+    sns.scatterplot(x=y_pred, y=residuals, alpha=0.6)
+    plt.axhline(0, color='red', linestyle='--')
+    plt.xlabel("Predicted Price")
+    plt.ylabel("Residuals")
+    plt.title("Residuals vs Predicted Prices (Gradient Boosting)")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig("graphs/gradient_boosting/residuals_vs_predicted.png")
+    plt.close()
