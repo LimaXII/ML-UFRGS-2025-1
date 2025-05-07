@@ -7,6 +7,10 @@ from models.gradient_boosting import train_gradient_boosting_model
 from models.svr import train_svr_model
 from models.decision_tree import train_decision_tree_model
 from models.linear_regression import train_linear_regression_model
+from models.mlp import train_mlp_model
+from models.bayesian_ridge import train_bayesian_ridge
+from models.elastic_net import train_elastic_net
+from models.histogram_gb import train_histogram_gb
 from preprocessing import preprocessing
 
 # DEBUG: Se remover isso o código quebra kk
@@ -33,4 +37,17 @@ df = pd.read_csv("data/flights_data_processed.csv")
 #train_decision_tree_model(df=df)
 
 # Model 6: Linear Regression
-train_linear_regression_model(df=df)
+#train_linear_regression_model(df=df)
+
+#M odel 7: MLP Regressor
+#train_mlp_model(df=df)
+
+# Model 8: Bayesian Ridge Regression
+#train_bayesian_ridge(df=df)
+
+# Model 9: Elastic Net
+#train_elastic_net(df=df)
+
+# Model 10: Histogram based Gradient Boosting
+train_histogram_gb(df=df)
+
