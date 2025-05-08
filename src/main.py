@@ -45,7 +45,7 @@ df = pd.read_csv("data/flights_data_processed.csv")
 X_train, X_test, y_train, y_test = splitData(df=df)
 
 # Model 1: KNN
-train_knn_model(X_train, X_test, y_train, y_test)
+#train_knn_model(X_train, X_test, y_train, y_test)
 
 # Model 2: Random Forest
 #train_random_forest(X_train, X_test, y_train, y_test)
@@ -66,7 +66,7 @@ train_knn_model(X_train, X_test, y_train, y_test)
 #train_mlp_model(X_train, X_test, y_train, y_test)
 
 # Model 8: Bayesian Ridge Regression
-#train_bayesian_ridge(X_train, X_test, y_train, y_test)
+train_bayesian_ridge(X_train, X_test, y_train, y_test)
 
 # Model 9: Elastic Net
 #train_elastic_net(X_train, X_test, y_train, y_test)

@@ -27,31 +27,4 @@ def train_svr_model(X_train, X_test, y_train, y_test):
     print(f"RMSE: {rmse:.2f}")
     print(f"R²: {r2:.2f}")
 
-    # Plot 1: Valor Real x Valor Predito
-    plt.figure(figsize=(8, 6))
-    sns.scatterplot(x=y_test_real, y=y_pred, alpha=0.6)
-    plt.plot(
-        [y_test_real.min(), y_test_real.max()],
-        [y_test_real.min(), y_test_real.max()],
-        'r--'
-    )
-    plt.xlabel("Actual Price")
-    plt.ylabel("Predicted Price")
-    plt.title("Actual vs Predicted Prices (SVR)")
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig("graphs/svr/actual_vs_predicted.png")
-    plt.close()
-
-    # Plot 2: Resíduos x Valor Predito
-    residuals = y_test_real - y_pred
-    plt.figure(figsize=(8, 6))
-    sns.scatterplot(x=y_pred, y=residuals, alpha=0.6)
-    plt.axhline(0, color='red', linestyle='--')
-    plt.xlabel("Predicted Price")
-    plt.ylabel("Residuals")
-    plt.title("Residuals vs Predicted Prices (SVR)")
-    plt.grid(True)
-    plt.tight_layout()
-    plt.savefig("graphs/svr/residuals_vs_predicted.png")
-    plt.close()
+    plot_graph(y_test_real, y_pred, "SVR", "svr")
