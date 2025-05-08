@@ -7,32 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsRegressor
 
 
-def train_knn_model(
-    df: pd.DataFrame
-):
-    """
-    Train a  regression model on a preprocessed DataFrame.
-    Treina um modelo K-Nearest Neighbors (KNN) utilizando um DataFrame já pré-processado
-
-    Args:
-        df (pd.DataFrame): Dataset já pré-processado, que incluí a coluna que deve ser predita, 'price'.
-    """
-    # Colunas com valores categóricos.
-    categorical_cols: list = ["airline", "route_combined", "class"]
-    # One-hot encode para dados categóricos.
-    df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
-
-    X = df.drop(columns=["price", "Unnamed: 0"], errors="ignore")
-    # Converte os valores de 'price' com log, para normalizar a resposta.
-    y = np.log1p(df["price"])
-
-    # Separa os dados (80% treino, 20% teste)
-    X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.2,
-        random_state=30
-    )
+def train_knn_model(X_train, X_test, y_train, y_test):
 
     # Inicializa o Knn, com k=2.
     knn = KNeighborsRegressor(

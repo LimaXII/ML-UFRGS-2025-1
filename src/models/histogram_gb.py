@@ -6,16 +6,8 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import HistGradientBoostingRegressor
 
-def train_histogram_gb(df: pd.DataFrame):
-    categorical_cols = ["airline", "route_combined", "class"]
-    df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
-
-    X = df.drop(columns=["price", "Unnamed: 0"], errors="ignore")
-    y = np.log1p(df["price"])
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=30
-    )
+def train_histogram_gb(X_train, X_test, y_train, y_test):
+    
 
     model = HistGradientBoostingRegressor(random_state=30)
     model.fit(X_train, y_train)

@@ -7,25 +7,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 
 
-def train_decision_tree_model(df: pd.DataFrame):
-    """
-    Train a Decision Tree Regressor model on a preprocessed DataFrame.
-
-    Args:
-        df (pd.DataFrame): Dataset já pré-processado, que inclui a coluna 'price' como alvo.
-    """
-    # Colunas com valores categóricos.
-    categorical_cols: list = ["airline", "route_combined", "class"]
-    # One-hot encode para dados categóricos.
-    df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
-
-    X = df.drop(columns=["price", "Unnamed: 0"], errors="ignore")
-    y = np.log1p(df["price"])
-
-    # Separa os dados (80% treino, 20% teste)
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=30
-    )
+def train_decision_tree_model(X_train, X_test, y_train, y_test):
 
     # Inicializa o Decision Tree Regressor (sem poda)
     tree = DecisionTreeRegressor(random_state=30)

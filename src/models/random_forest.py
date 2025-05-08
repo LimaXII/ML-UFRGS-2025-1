@@ -15,25 +15,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
 
 
-def train_random_forest(
-    df: pd.DataFrame
-):
-    # Colunas com valores categóricos.
-    categorical_cols: list = ["airline", "route_combined", "class"]
-    # One-hot encode para dados categóricos.
-    df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
-
-    X = df.drop(columns=["price", "Unnamed: 0"], errors="ignore")
-    # Converte os valores de 'price' com log, para normalizar a resposta.
-    y = np.log1p(df["price"])
-
-    # Separa os dados (80% treino, 20% teste)
-    X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.2,
-        random_state=30
-    )
+def train_random_forest(X_train, X_test, y_train, y_test):
 
     model = RandomForestRegressor(
         n_estimators=200,

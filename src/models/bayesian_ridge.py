@@ -6,16 +6,7 @@ from sklearn.linear_model import BayesianRidge
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 
-def train_bayesian_ridge(df: pd.DataFrame):
-    categorical_cols = ["airline", "route_combined", "class"]
-    df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
-
-    X = df.drop(columns=["price", "Unnamed: 0"], errors="ignore")
-    y = np.log1p(df["price"])
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=30
-    )
+def train_bayesian_ridge(X_train, X_test, y_train, y_test):
 
     model = BayesianRidge()
     model.fit(X_train, y_train)
