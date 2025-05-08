@@ -5,16 +5,6 @@ import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 
 
-def detect_outliers(col):
-    Q1 = col.quantile(0.25)
-    Q3 = col.quantile(0.75)
-    IQR = Q3 - Q1
-    lower_bound = Q1 - 1.5 * IQR
-    upper_bound = Q3 + 1.5 * IQR
-
-    return ((col < lower_bound) | (col > upper_bound)).sum()
-
-
 def preprocessing(
     data_path: str
 ):
@@ -46,7 +36,7 @@ def preprocessing(
     print("\n=== OUTLIERS ===\n")
 
     # Verificar outliers nas colunas numéricas
-    numeric_cols = ['duration', 'days_left', 'price']
+    numeric_cols = ['duration', 'days_left', 'price', ]
     for col in numeric_cols:
         outliers = detect_outliers(col=df[col])
         print(f"{col}: {outliers} outliers")
@@ -58,14 +48,10 @@ def preprocessing(
     plt.savefig("graphs/preprocessing/outliers.png")
     plt.close()
 
-    # Opções para tratar outliers:
-    # 1. Remover
-    # df = df[~outliers_mask]
-    # 2. Transformar (log)
-    # df['Price_log'] = np.log(df['Price'])
-    # 3. Winsorizar
-    # from scipy.stats.mstats import winsorize
-    # df['Price_winsorized'] = winsorize(df['Price'], limits=[0.05, 0.05])
+    # Remoção de outliers usando IQR para cada coluna numérica
+    for col in numeric_cols:
+        df = remove_outliers_iqr(df, col)
+
 
     # c) Engenharia de Features
     print("\n=== ENGENHARIA DE FEATURES ===\n")
@@ -170,3 +156,30 @@ def preprocessing(
     print("\nDataFrame processado salvo como 'flights_data_processed.csv'")
 
     return df
+
+def detect_outliers(col):
+    Q1 = col.quantile(0.25)
+    Q3 = col.quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+
+    return ((col < lower_bound) | (col > upper_bound)).sum()
+
+def remove_outliers_iqr(df: pd.DataFrame, col: str) -> pd.DataFrame:
+    """
+    Remove os outliers de uma coluna numérica com base na regra do IQR.
+
+    Args:
+        df (pd.DataFrame): DataFrame de entrada.
+        col (str): Nome da coluna numérica a ser tratada.
+
+    Returns:
+        pd.DataFrame: DataFrame sem os outliers da coluna especificada.
+    """
+    Q1 = df[col].quantile(0.25)
+    Q3 = df[col].quantile(0.75)
+    IQR = Q3 - Q1
+    lower = Q1 - 1.5 * IQR
+    upper = Q3 + 1.5 * IQR
+    return df[(df[col] >= lower) & (df[col] <= upper)]

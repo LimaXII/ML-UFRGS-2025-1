@@ -1,0 +1,150 @@
+=== DADOS FALTANTES ===
+
+Quantidade de valores nulos por coluna:
+Unnamed: 0          0
+airline             0
+flight              0
+source_city         0
+departure_time      0
+stops               0
+arrival_time        0
+destination_city    0
+class               0
+duration            0
+days_left           0
+price               0
+dtype: int64
+
+=== OUTLIERS ===
+
+duration: 2110 outliers
+days_left: 0 outliers
+price: 123 outliers
+
+=== ENGENHARIA DE FEATURES ===
+
+Valores únicos em 'departure_time': ['Evening' 'Early_Morning' 'Morning' 'Afternoon' 'Night' 'Late_Night']
+Valores únicos em 'arrival_time': ['Night' 'Morning' 'Early_Morning' 'Afternoon' 'Evening' 'Late_Night']
+/Users/i583975/git/ML-UFRGS-2025-1/src/preprocessing.py:97: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df['stops_numeric'].fillna(0, inplace=True)
+
+Novas features criadas:
+   departure_time_num  arrival_time_num route_combined  stops_numeric
+0                   3                 4   Delhi-Mumbai            0.0
+1                   0                 1   Delhi-Mumbai            0.0
+2                   0                 0   Delhi-Mumbai            0.0
+3                   1                 2   Delhi-Mumbai            0.0
+4                   1                 1   Delhi-Mumbai            0.0
+
+=== NORMALIZAÇÃO ===
+
+Estatísticas antes da normalização:
+            duration      days_left          price
+count  297921.000000  297921.000000  297921.000000
+mean       12.071680      26.039299   20883.203916
+std         6.994053      13.549680   22672.527599
+min         0.830000       1.000000    1105.000000
+25%         6.750000      15.000000    4757.000000
+50%        11.170000      26.000000    7424.000000
+75%        16.000000      38.000000   42521.000000
+max        30.170000      49.000000   99129.000000
+
+Estatísticas após normalização do price:
+count    297921.000000
+mean          0.201769
+std           0.231296
+min           0.000000
+25%           0.037256
+50%           0.064464
+75%           0.422509
+max           1.000000
+Name: price_normalized, dtype: float64
+
+=== BALANCEAMENTO ===
+
+
+Distribuição de airline:
+airline
+Vistara      42.601226
+Air_India    26.718828
+Indigo       14.473636
+GO_FIRST      7.778237
+AirAsia       5.403446
+SpiceJet      3.024627
+Name: proportion, dtype: float64
+
+Distribuição de source_city:
+source_city
+Delhi        20.527925
+Mumbai       20.368823
+Bangalore    17.302574
+Kolkata      15.386965
+Hyderabad    13.639858
+Chennai      12.773856
+Name: proportion, dtype: float64
+
+Distribuição de destination_city:
+destination_city
+Mumbai       19.688441
+Delhi        19.179917
+Bangalore    17.013235
+Kolkata      16.493970
+Hyderabad    14.208129
+Chennai      13.416308
+Name: proportion, dtype: float64
+
+Distribuição de stops:
+stops
+one            83.739985
+zero           12.085083
+two_or_more     4.174932
+Name: proportion, dtype: float64
+
+Distribuição de class:
+class
+Economy     68.740371
+Business    31.259629
+Name: proportion, dtype: float64
+
+=== INCONSISTÊNCIAS ===
+
+Voos com duração suspeita:
+Empty DataFrame
+Columns: [source_city, destination_city, duration]
+Index: []
+
+Voos com preço zero ou negativo:
+Empty DataFrame
+Columns: [airline, source_city, destination_city, price]
+Index: []
+
+=== REMOÇÃO DE COLUNAS ===
+
+Colunas a serem removidas: ['departure_time', 'arrival_time', 'stops', 'source_city', 'destination_city', 'flight', 'price_normalized']
+
+Estrutura final do DataFrame:
+<class 'pandas.core.frame.DataFrame'>
+Index: 297921 entries, 0 to 300152
+Data columns (total 10 columns):
+ #   Column              Non-Null Count   Dtype  
+---  ------              --------------   -----  
+ 0   Unnamed: 0          297921 non-null  int64  
+ 1   airline             297921 non-null  object 
+ 2   class               297921 non-null  object 
+ 3   duration            297921 non-null  float64
+ 4   days_left           297921 non-null  int64  
+ 5   price               297921 non-null  int64  
+ 6   departure_time_num  297921 non-null  int64  
+ 7   arrival_time_num    297921 non-null  int64  
+ 8   route_combined      297921 non-null  object 
+ 9   stops_numeric       297921 non-null  float64
+dtypes: float64(2), int64(5), object(3)
+memory usage: 25.0+ MB
+None
+
+DataFrame processado salvo como 'flights_data_processed.csv'
