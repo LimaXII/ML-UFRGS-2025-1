@@ -22,10 +22,10 @@ matplotlib.use('Agg')
 df = pd.read_csv("data/flights_data_processed.csv")
 
 # Model 1: KNN
-#train_knn_model(df=df)
+train_knn_model(df=df)
 
 # Model 2: Random Forest
-#train_random_forest(df=df)
+train_random_forest(df=df)
 
 # Model 3: Gradient Boosting Regressor
 #train_gradient_boosting_model(df=df)
@@ -49,5 +49,5 @@ df = pd.read_csv("data/flights_data_processed.csv")
 #train_elastic_net(df=df)
 
 # Model 10: Histogram based Gradient Boosting
-train_histogram_gb(df=df)
+#train_histogram_gb(df=df)
 

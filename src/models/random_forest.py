@@ -66,10 +66,23 @@ def train_random_forest(
     )
     plt.xlabel("Actual Price")
     plt.ylabel("Predicted Price")
-    plt.title("Actual vs Predicted Prices")
+    plt.title("Actual vs Predicted Prices (Random Forest)")
     plt.grid(True)
     plt.tight_layout()
     plt.savefig("graphs/random_forest/actual_vs_predicted.png")
+    plt.close()
+
+    # Plot 2: Valor residual x Valor Predito.
+    residuals = y_test_real - y_pred
+    plt.figure(figsize=(8, 6))
+    sns.scatterplot(x=y_pred, y=residuals, alpha=0.6)
+    plt.axhline(0, color='red', linestyle='--')
+    plt.xlabel("Predicted Price")
+    plt.ylabel("Residuals")
+    plt.title("Residuals vs Predicted Prices (Random Forest)")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.savefig("graphs/gradient_boosting/residuals_vs_predicted.png")
     plt.close()
 
     return model
