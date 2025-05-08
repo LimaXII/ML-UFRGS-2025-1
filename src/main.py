@@ -57,7 +57,7 @@ X_train, X_test, y_train, y_test = splitData(df=df)
 #train_svr_model(X_train, X_test, y_train, y_test)
 
 # Model 5: Decision Tree Regressor
-#train_decision_tree_model(X_train, X_test, y_train, y_test)
+train_decision_tree_model(X_train, X_test, y_train, y_test)
 
 # Model 6: Linear Regression
 #train_linear_regression_model(X_train, X_test, y_train, y_test)
@@ -66,7 +66,7 @@ X_train, X_test, y_train, y_test = splitData(df=df)
 #train_mlp_model(X_train, X_test, y_train, y_test)
 
 # Model 8: Bayesian Ridge Regression
-train_bayesian_ridge(X_train, X_test, y_train, y_test)
+#train_bayesian_ridge(X_train, X_test, y_train, y_test)
 
 # Model 9: Elastic Net
 #train_elastic_net(X_train, X_test, y_train, y_test)
