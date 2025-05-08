@@ -15,8 +15,19 @@ def detect_outliers(col):
     return ((col < lower_bound) | (col > upper_bound)).sum()
 
 
-def preprocessing(data: str):
-    df = pd.read_csv(data)
+def preprocessing(
+    data_path: str
+):
+    """
+    Realiza o pré-processamento dos dados de voos, incluindo a identificação e 
+     tratamento de problemas como dados faltantes, outliers, inconsistências, e 
+     a criação de novas features.
+
+    Args:
+        data_path (str): Caminho para o arquivo CSV contendo os dados de voos.
+    """
+
+    df = pd.read_csv(data_path)
 
     # 4. Identificação e Tratamento de Problemas
     # a) Dados Faltantes
