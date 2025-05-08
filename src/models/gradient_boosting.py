@@ -13,8 +13,4 @@ def train_gradient_boosting_model(X_train, X_test, y_train, y_test):
 
     y_test_real, y_pred = evaluate(model, X_test, y_test)
 
-    print(f"MAE: {mae:.2f}")
-    print(f"RMSE: {rmse:.2f}")
-    print(f"R²: {r2:.2f}")
-
     plot_graph(y_test_real, y_pred, "Gradiente Boosting", "gradient_boosting")

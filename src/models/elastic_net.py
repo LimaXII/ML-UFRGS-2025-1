@@ -8,6 +8,4 @@ def train_elastic_net(X_train, X_test, y_train, y_test):
 
     y_test_real, y_pred = evaluate(model, X_test, y_test)
 
-    print(f"[ElasticNet] MAE: {mae:.2f}, RMSE: {rmse:.2f}, R²: {r2:.2f}")
-
     plot_graph(y_test_real, y_pred, "ElasticNet", "elastic_net")
