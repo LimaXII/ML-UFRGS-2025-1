@@ -1,76 +1,88 @@
 import matplotlib
 import numpy as np
 import pandas as pd
-from sklearn.model_selection import train_test_split
 
-from models.bayesian_ridge import train_bayesian_ridge
-from models.decision_tree import train_decision_tree_model
-from models.elastic_net import train_elastic_net
-from models.gradient_boosting import train_gradient_boosting_model
-from models.histogram_gb import train_histogram_gb
-from models.knn import train_knn_model
-from models.linear_regression import train_linear_regression_model
-from models.mlp import train_mlp_model
-from models.random_forest import train_random_forest
-from models.svr import train_svr_model
+from models.models import (
+    train_bayesian_ridge,
+    train_decision_tree_model,
+    train_elastic_net,
+    train_gradient_boosting_model,
+    train_histogram_gb,
+    train_knn_model,
+    train_linear_regression_model,
+    train_mlp_model,
+    train_random_forest,
+    train_svr_model,
+)
 from preprocessing import preprocessing
 
 matplotlib.use('Agg')
-
-
-def splitData(df: pd.DataFrame):
-    # Colunas com valores categóricos.
-    categorical_cols: list = ["airline", "route_combined", "class"]
-    # One-hot encode para dados categóricos.
-    df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
-
-    X = df.drop(columns=["price", "Unnamed: 0"], errors="ignore")
-    # Converte os valores de 'price' com log, para normalizar a resposta.
-    y = np.log1p(df["price"])
-
-    # Separa os dados (80% treino, 20% teste)
-    X_train, X_test, y_train, y_test = train_test_split(
-        X,
-        y,
-        test_size=0.2,
-        random_state=30
-    )
-
-    return X_train, X_test, y_train, y_test
-
 # Comentado pois não precisamos processar novamente os dados, por agora.
 # df = preprocessing(data_path="data/Clean_Dataset.csv")
 
 
-df = pd.read_csv("data/flights_data_processed.csv")
-X_train, X_test, y_train, y_test = splitData(df=df)
+def splitData(
+    df: pd.DataFrame
+):
+    """
+    Divide os dados em variáveis features (X) e target (y).
+    A variável target é o preço do voo, enquanto as variáveis features
+    são todas as outras colunas do DataFrame.
+
+    Args:
+        df (pd.DataFrame): DataFrame contendo os dados de voos.
+    """
+
+    categorical_cols: list = [
+        "airline",
+        "route_combined",
+        "class"
+    ]
+    df = pd.get_dummies(
+        df,
+        columns=categorical_cols,
+        drop_first=True
+    )
+
+    X = df.drop(
+        columns=[
+            "price",
+            "Unnamed: 0"],
+        errors="ignore"
+    )
+    y = np.log1p(df["price"])
+    return X, y
+
+
+df: pd.DataFrame = pd.read_csv("data/flights_data_processed.csv")
+X, y = splitData(df=df)
 
 # Model 1: Bayesian Ridge Regression
-train_bayesian_ridge(X_train, X_test, y_train, y_test)
+train_bayesian_ridge(X=X, y=y)
 
 # Model 2: Decision Tree Regressor
-train_decision_tree_model(X_train, X_test, y_train, y_test)
+train_decision_tree_model(X=X, y=y)
 
 # Model 3: Elastic Net
-train_elastic_net(X_train, X_test, y_train, y_test)
+train_elastic_net(X=X, y=y)
 
 # Model 4: Gradient Boosting Regressor
-train_gradient_boosting_model(X_train, X_test, y_train, y_test)
+train_gradient_boosting_model(X=X, y=y)
 
 # Model 5: Histogram based Gradient Boosting
-train_histogram_gb(X_train, X_test, y_train, y_test)
+train_histogram_gb(X=X, y=y)
 
 # Model 6: KNN
-train_knn_model(X_train, X_test, y_train, y_test)
+train_knn_model(X=X, y=y)
 
 # Model 7: Linear Regression
-train_linear_regression_model(X_train, X_test, y_train, y_test)
+train_linear_regression_model(X=X, y=y)
 
 # Model 8: MLP Regressor
-train_mlp_model(X_train, X_test, y_train, y_test)
+train_mlp_model(X=X, y=y)
 
 # Model 9: Random Forest
-train_random_forest(X_train, X_test, y_train, y_test)
+train_random_forest(X=X, y=y)
 
 # Model 10: SVR
-train_svr_model(X_train, X_test, y_train, y_test)
+train_svr_model(X=X, y=y)

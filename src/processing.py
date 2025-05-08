@@ -2,26 +2,31 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.model_selection import KFold, cross_val_predict
 
 
 def evaluate(
     model,
-    X_test,
-    y_test
+    X,
+    y
 ):
     """
-    Avalia o modelo de regressão utilizando as métricas MAE, RMSE e R².
+    Avalia o modelo de regressão utilizando as métricas MAE, RMSE e R²,
+    com validação cruzada.
 
     Args:
-        model: O modelo de regressão treinado.
-        X_test: Conjunto de dados de teste (features).
-        y_test: Conjunto de dados de teste (target).
+        model: Modelo de regressão a ser avaliado.
+        X: Conjunto de dados de entrada (features).
+        y: Conjunto de dados de saída (target).
     """
 
-    # Realiza as predições
-    y_pred_log = model.predict(X_test)
+    # 5-fold cross-validation
+    cv = KFold(n_splits=5, shuffle=True, random_state=30)
+    y_pred_log = cross_val_predict(model, X, y, cv=cv)
+
+    # Converte os valores de volta da escala log para original
     y_pred = np.expm1(y_pred_log)
-    y_test_real = np.expm1(y_test)
+    y_test_real = np.expm1(y)
 
     # Avaliação do modelo
     mae: float = mean_absolute_error(y_test_real, y_pred)
@@ -29,7 +34,6 @@ def evaluate(
     r2: float = r2_score(y_test_real, y_pred)
 
     print("Resultados: \n")
-
     print(f"MAE: {mae:.2f}")
     print(f"RMSE: {rmse:.2f}")
     print(f"R²: {r2:.2f}")

@@ -27,14 +27,15 @@ O projeto utiliza o [Poetry](https://python-poetry.org/) para gerenciamento de d
 A estrutura do projeto está organizada da seguinte forma: 
 
     .
-    ├── data/                     # Dados utilizados no projeto
-    ├── graphs/                   # Gráficos gerados ao longo do projeto
-    ├── src/                      # Código-fonte do projeto
+    ├── data/                     # Dados utilizados no projeto.
+    ├── graphs/                   # Gráficos gerados ao longo do projeto.
+    ├── src/                      # Código-fonte do projeto.
     |   └── models/
-    |       └── knn.py            # Treina o modelo KNN.
-    |   └── main.py               # Script principal de execução
-    │   └── data_processing.py    # Realiza o pré-processamento dos dados
-    ├── pyproject.toml            # Configuração do Poetry
+    |       └── models.py         # Script que contém todos os modelos utilizados.
+    |   └── main.py               # Script principal de execução.
+    │   └── preprocessing.py      # Realiza o pré-processamento dos dados.
+        └── processing.py         # Avalia o modelo e plota gráficos.
+    ├── pyproject.toml            # Configuração do Poetry.
     └── README.md
   
 # Referências
