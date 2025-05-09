@@ -121,11 +121,6 @@ def preprocessing(
         plt.savefig(f"graphs/preprocessing/distribution-{col}.png")
         plt.close()
 
-    # Se houver classes muito desbalanceadas, considerar:
-    # 1. Undersampling
-    # 2. Oversampling (SMOTE)
-    # 3. Ponderar classes no modelo
-
     # f) Tratamento de Inconsistências
     print("\n=== INCONSISTÊNCIAS ===\n")
 

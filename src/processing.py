@@ -3,26 +3,25 @@ import numpy as np
 import seaborn as sns
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import KFold, cross_val_predict
+from sklearn.preprocessing import StandardScaler
+from imblearn.pipeline import Pipeline
 
-
-def evaluate(
-    model,
-    X,
-    y
-):
+def evaluate( model, X, y, balance: str = 'none'):
     """
-    Avalia o modelo de regressão utilizando as métricas MAE, RMSE e R²,
-    com validação cruzada.
+    Avalia um modelo de regressão com ou sem balanceamento do target.
 
     Args:
-        model: Modelo de regressão a ser avaliado.
-        X: Conjunto de dados de entrada (features).
-        y: Conjunto de dados de saída (target).
+        model: Estimador de regressão.
+        X (pd.DataFrame or np.ndarray): Features.
+        y (pd.Series or np.ndarray): Target (em escala log).
+        balance (str): Tipo de balanceamento - 'none', 'undersample', 'oversample', ou 'smote'.
     """
+
+    pipeline = make_balanced_pipeline(model, balance)
 
     # 5-fold cross-validation
     cv = KFold(n_splits=5, shuffle=True, random_state=30)
-    y_pred_log = cross_val_predict(model, X, y, cv=cv)
+    y_pred_log = cross_val_predict(pipeline, X, y, cv=cv)
 
     # Converte os valores de volta da escala log para original
     y_pred = np.expm1(y_pred_log)
@@ -33,13 +32,38 @@ def evaluate(
     rmse: float = np.sqrt(mean_squared_error(y_test_real, y_pred))
     r2: float = r2_score(y_test_real, y_pred)
 
-    print("Resultados: \n")
+    print(f"\nResultados com balanceamento = '{balance}':")
     print(f"MAE: {mae:.2f}")
     print(f"RMSE: {rmse:.2f}")
     print(f"R²: {r2:.2f}")
 
     return y_test_real, y_pred
 
+def make_balanced_pipeline(model, balance: str = 'none'):
+    """
+    Cria um pipeline com balanceamento opcional.
+
+    Args:
+        model: Estimador de regressão ou classificação.
+        balance (str): Tipo de balanceamento - 'none', 'undersample', 'oversample', 'smote'.
+
+    Returns:
+        Pipeline com pré-processamento e balanceamento conforme especificado.
+    """
+    sampler = None
+    if balance == 'undersample':
+        sampler = RandomUnderSampler(random_state=42)
+    elif balance == 'oversample':
+        sampler = RandomOverSampler(random_state=42)
+    elif balance == 'smote':
+        sampler = SMOTE(random_state=42)
+
+    steps = [('scaler', StandardScaler())]
+    if sampler:
+        steps.append(('sampler', sampler))
+    steps.append(('model', model))
+
+    return Pipeline(steps)
 
 def plot_graph(
     y_test_real,
@@ -79,3 +103,4 @@ def plot_graph(
     plt.tight_layout()
     plt.savefig("graphs/" + dir_name + "/residuals_vs_predicted.png")
     plt.close()
+

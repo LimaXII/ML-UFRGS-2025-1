@@ -11,13 +11,15 @@ from sklearn.tree import DecisionTreeRegressor
 
 from processing import evaluate, plot_graph
 
+balance: str = "none" # 'none', 'undersample', 'oversample', 'smote'
 
 def train_bayesian_ridge(X, y):
     print("\nModelo número 1: Bayesian Ridge\n")
     y_test_real, y_pred = evaluate(
         model=BayesianRidge(),
         X=X,
-        y=y
+        y=y,
+        balance=balance
     )
 
     plot_graph(
@@ -36,7 +38,8 @@ def train_decision_tree_model(X, y):
             random_state=30
         ),
         X=X,
-        y=y
+        y=y,
+        balance=balance
     )
 
     plot_graph(
@@ -54,7 +57,8 @@ def train_elastic_net(X, y):
             random_state=30
         ),
         X=X,
-        y=y
+        y=y,
+        balance=balance
     )
 
     plot_graph(
@@ -75,7 +79,8 @@ def train_gradient_boosting_model(X, y):
             random_state=30
         ),
         X=X,
-        y=y
+        y=y,
+        balance=balance
     )
 
     plot_graph(
@@ -93,7 +98,8 @@ def train_histogram_gb(X, y):
             random_state=30
         ),
         X=X,
-        y=y
+        y=y,
+        balance=balance
     )
 
     plot_graph(
@@ -111,7 +117,8 @@ def train_knn_model(X, y):
             n_neighbors=2
         ),
         X=X,
-        y=y
+        y=y,
+        balance=balance
     )
 
     plot_graph(
@@ -127,7 +134,8 @@ def train_linear_regression_model(X, y):
     y_test_real, y_pred = evaluate(
         model=LinearRegression(),
         X=X,
-        y=y
+        y=y,
+        balance=balance
     )
 
     plot_graph(
@@ -147,7 +155,8 @@ def train_mlp_model(X, y):
             random_state=30
         ),
         X=X,
-        y=y
+        y=y,
+        balance=balance
     )
 
     plot_graph(
@@ -166,7 +175,8 @@ def train_random_forest(X, y):
             random_state=30
         ),
         X=X,
-        y=y
+        y=y,
+        balance=balance
     )
 
     plot_graph(
@@ -186,7 +196,8 @@ def train_svr_model(X, y):
             epsilon=0.2
         ),
         X=X,
-        y=y
+        y=y,
+        balance=balance
     )
 
     plot_graph(
