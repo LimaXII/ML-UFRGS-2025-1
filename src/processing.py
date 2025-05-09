@@ -48,7 +48,7 @@ def make_balanced_pipeline(model, balance: str = 'none'):
         balance (str): Tipo de balanceamento - 'none', 'undersample', 'oversample', 'smote'.
 
     Returns:
-        Pipeline com pré-processamento e balanceamento conforme especificado.
+        Pipeline do modelo com balanceamento conforme especificado.
     """
     sampler = None
     if balance == 'undersample':
