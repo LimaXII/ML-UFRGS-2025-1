@@ -29,6 +29,7 @@ A estrutura do projeto está organizada da seguinte forma:
     .
     ├── data/                     # Dados utilizados no projeto.
     ├── graphs/                   # Gráficos gerados ao longo do projeto.
+    ├── results/                  # Resultados gerados ao longo do projeto.
     ├── src/                      # Código-fonte do projeto.
     |   └── models/
     |       └── models.py         # Script que contém todos os modelos utilizados.
