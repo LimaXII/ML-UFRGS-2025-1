@@ -1,0 +1,73 @@
+Modelo número 1: Bayesian Ridge
+
+
+Resultados com balanceamento = 'none':
+MAE: 4584.95
+RMSE: 7805.05
+R²: 0.88
+
+Modelo número 2: Decision Tree
+
+
+Resultados com balanceamento = 'none':
+MAE: 1164.17
+RMSE: 3445.44
+R²: 0.98
+
+Modelo número 3: Elastic Net
+
+
+Resultados com balanceamento = 'none':
+MAE: 13214.20
+RMSE: 20510.97
+R²: 0.18
+
+Modelo número 4: Gradient Boosting
+
+
+Resultados com balanceamento = 'none':
+MAE: 2930.91
+RMSE: 5051.22
+R²: 0.95
+
+Modelo número 5: Histogram based Gradient Boosting
+
+
+Resultados com balanceamento = 'none':
+MAE: 2461.82
+RMSE: 4380.86
+R²: 0.96
+
+Modelo número 6: KNN
+
+
+Resultados com balanceamento = 'none':
+MAE: 1568.96
+RMSE: 3691.20
+R²: 0.97
+
+Modelo número 7: Linear Regression
+
+
+Resultados com balanceamento = 'none':
+MAE: 4585.00
+RMSE: 7805.18
+R²: 0.88
+
+Modelo número 8: MLP Regressor
+
+
+Resultados com balanceamento = 'none':
+MAE: 2577.41
+RMSE: 4589.43
+R²: 0.96
+
+Modelo número 9: Random Forest
+
+
+Resultados com balanceamento = 'none':
+MAE: 1056.93
+RMSE: 2712.76
+R²: 0.99
+
+Modelo número 10: SVR
