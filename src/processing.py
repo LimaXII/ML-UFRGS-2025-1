@@ -5,51 +5,37 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import KFold, cross_val_predict
 from sklearn.preprocessing import StandardScaler
 from imblearn.pipeline import Pipeline
+from sklearn.compose import TransformedTargetRegressor
+from imblearn.under_sampling import RandomUnderSampler
+from imblearn.over_sampling import RandomOverSampler, SMOTE
 
-def evaluate( model, X, y, balance: str = 'none'):
-    """
-    Avalia um modelo de regressão com ou sem balanceamento do target.
 
-    Args:
-        model: Estimador de regressão.
-        X (pd.DataFrame or np.ndarray): Features.
-        y (pd.Series or np.ndarray): Target (em escala log).
-        balance (str): Tipo de balanceamento - 'none', 'undersample', 'oversample', ou 'smote'.
-    """
-
+def evaluate(model, X, y, balance: str = 'none'):
     pipeline = make_balanced_pipeline(model, balance)
 
     # 5-fold cross-validation
     cv = KFold(n_splits=5, shuffle=True, random_state=30)
-    y_pred_log = cross_val_predict(pipeline, X, y, cv=cv)
-
-    # Converte os valores de volta da escala log para original
-    y_pred = np.expm1(y_pred_log)
-    y_test_real = np.expm1(y)
+    y_pred = cross_val_predict(pipeline, X, y, cv=cv)
 
     # Avaliação do modelo
-    mae: float = mean_absolute_error(y_test_real, y_pred)
-    rmse: float = np.sqrt(mean_squared_error(y_test_real, y_pred))
-    r2: float = r2_score(y_test_real, y_pred)
+    mae: float = mean_absolute_error(y, y_pred)
+    rmse: float = np.sqrt(mean_squared_error(y, y_pred))
+    r2: float = r2_score(y, y_pred)
+    std_error: float = np.std(np.abs(y - y_pred))
 
     print(f"\nResultados com balanceamento = '{balance}':")
     print(f"MAE: {mae:.2f}")
     print(f"RMSE: {rmse:.2f}")
     print(f"R²: {r2:.2f}")
+    print(f"Desvio Padrão dos Erros Absolutos: {std_error:.2f}")
 
-    return y_test_real, y_pred
+    return y, y_pred
+
+
+
+from sklearn.compose import TransformedTargetRegressor
 
 def make_balanced_pipeline(model, balance: str = 'none'):
-    """
-    Cria um pipeline com balanceamento opcional.
-
-    Args:
-        model: Estimador de regressão ou classificação.
-        balance (str): Tipo de balanceamento - 'none', 'undersample', 'oversample', 'smote'.
-
-    Returns:
-        Pipeline do modelo com balanceamento conforme especificado.
-    """
     sampler = None
     if balance == 'undersample':
         sampler = RandomUnderSampler(random_state=42)
@@ -61,9 +47,16 @@ def make_balanced_pipeline(model, balance: str = 'none'):
     steps = [('scaler', StandardScaler())]
     if sampler:
         steps.append(('sampler', sampler))
-    steps.append(('model', model))
 
+    model = TransformedTargetRegressor(
+        regressor=model,
+        func=np.log1p,
+        inverse_func=np.expm1
+    )
+
+    steps.append(('model', model))
     return Pipeline(steps)
+
 
 def plot_graph(
     y_test_real,

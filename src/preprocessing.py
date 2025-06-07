@@ -90,21 +90,7 @@ def preprocessing(
     print(df[['departure_time_num', 'arrival_time_num',
               'route_combined', 'stops_numeric']].head())
 
-    # d) Normalização
-    print("\n=== NORMALIZAÇÃO ===\n")
-
-    # Verificar a necessidade de normalização
-    print("Estatísticas antes da normalização:")
-    print(df[numeric_cols].describe())
-
-    # Normalização da coluna price
-    scaler = MinMaxScaler()
-    df['price_normalized'] = scaler.fit_transform(df[['price']])
-
-    print("\nEstatísticas após normalização do price:")
-    print(df['price_normalized'].describe())
-
-    # e) Balanceamento
+    # d) Balanceamento
     print("\n=== BALANCEAMENTO ===\n")
 
     # Verificar balanceamento nas colunas categóricas
@@ -121,7 +107,7 @@ def preprocessing(
         plt.savefig(f"graphs/preprocessing/distribution-{col}.png")
         plt.close()
 
-    # f) Tratamento de Inconsistências
+    # e) Tratamento de Inconsistências
     print("\n=== INCONSISTÊNCIAS ===\n")
 
     # Verificar durações inconsistentes
@@ -134,19 +120,19 @@ def preprocessing(
     print(df[df['price'] <= 0]
           [['airline', 'source_city', 'destination_city', 'price']])
 
-    # g) Remoção de Colunas Problemáticas
+    # f) Remoção de Colunas Problemáticas
     print("\n=== REMOÇÃO DE COLUNAS ===\n")
 
     # # Colunas que podem ser removidas após processamento
     cols_to_drop: list = ["departure_time", "arrival_time", "stops",
-                          "source_city", "destination_city", "flight", "price_normalized"]
+                          "source_city", "destination_city", "flight"]
     print(f"Colunas a serem removidas: {cols_to_drop}")
     df.drop(columns=cols_to_drop, inplace=True)
 
     print("\nEstrutura final do DataFrame:")
     print(df.info())
 
-    # h) Salvando o DataFrame processado
+    # g) Salvando o DataFrame processado
     df.to_csv('data/flights_data_processed.csv', index=False)
     print("\nDataFrame processado salvo como 'flights_data_processed.csv'")
 
