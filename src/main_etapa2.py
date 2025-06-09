@@ -2,16 +2,15 @@ import matplotlib
 import numpy as np
 import pandas as pd
 
-from models.models import (
-    train_decision_tree_model,
-    train_random_forest,
-)
+from models.hyperopt import optimize_decision_tree, optimize_random_forest
 
-from models.hyperopt import (
-    optimize_decision_tree,
-    optimize_random_forest
-)
-from preprocessing import preprocessing
+# from preprocessing import preprocessing
+
+# from models.models import (
+#   train_decision_tree_model,
+#    train_random_forest,
+# )
+
 
 matplotlib.use('Agg')
 # Comentado pois não precisamos processar novamente os dados, por agora.
