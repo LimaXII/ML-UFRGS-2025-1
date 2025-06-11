@@ -44,18 +44,21 @@ def make_balanced_pipeline(model, balance: str = 'none'):
     elif balance == 'smote':
         sampler = SMOTE(random_state=42)
 
-    steps = [('scaler', StandardScaler())]
+    steps = []
     if sampler:
         steps.append(('sampler', sampler))
 
-    model = TransformedTargetRegressor(
-        regressor=model,
+    steps.append(('scaler', StandardScaler()))
+
+    preprocessing_and_model = Pipeline(steps + [('regressor', model)])
+
+    wrapped_pipeline = TransformedTargetRegressor(
+        regressor=preprocessing_and_model,
         func=np.log1p,
         inverse_func=np.expm1
     )
 
-    steps.append(('model', model))
-    return Pipeline(steps)
+    return wrapped_pipeline
 
 
 def plot_graph(
