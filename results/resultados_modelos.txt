@@ -1,0 +1,74 @@
+[Decision Tree] Trial with params {'max_depth': 25, 'min_samples_split': 6, 'min_samples_leaf': 11} took 7.32 seconds.
+[Decision Tree] Trial with params {'max_depth': 7, 'min_samples_split': 10, 'min_samples_leaf': 7} took 3.68 seconds.
+[Decision Tree] Trial with params {'max_depth': 13, 'min_samples_split': 4, 'min_samples_leaf': 15} took 5.37 seconds.
+[Decision Tree] Trial with params {'max_depth': 22, 'min_samples_split': 11, 'min_samples_leaf': 6} took 6.83 seconds.
+[Decision Tree] Trial with params {'max_depth': 13, 'min_samples_split': 8, 'min_samples_leaf': 7} took 5.93 seconds.
+[Decision Tree] Trial with params {'max_depth': 19, 'min_samples_split': 17, 'min_samples_leaf': 18} took 6.77 seconds.
+[Decision Tree] Trial with params {'max_depth': 12, 'min_samples_split': 5, 'min_samples_leaf': 17} took 5.26 seconds.
+[Decision Tree] Trial with params {'max_depth': 8, 'min_samples_split': 15, 'min_samples_leaf': 14} took 4.15 seconds.
+[Decision Tree] Trial with params {'max_depth': 16, 'min_samples_split': 8, 'min_samples_leaf': 19} took 6.78 seconds.
+[Decision Tree] Trial with params {'max_depth': 12, 'min_samples_split': 4, 'min_samples_leaf': 17} took 6.99 seconds.
+[Decision Tree] Trial with params {'max_depth': 31, 'min_samples_split': 2, 'min_samples_leaf': 11} took 8.43 seconds.
+[Decision Tree] Trial with params {'max_depth': 32, 'min_samples_split': 2, 'min_samples_leaf': 11} took 7.84 seconds.
+[Decision Tree] Trial with params {'max_depth': 32, 'min_samples_split': 3, 'min_samples_leaf': 2} took 8.27 seconds.
+[Decision Tree] Trial with params {'max_depth': 32, 'min_samples_split': 2, 'min_samples_leaf': 1} took 8.38 seconds.
+[Decision Tree] Trial with params {'max_depth': 27, 'min_samples_split': 20, 'min_samples_leaf': 1} took 8.58 seconds.
+[Decision Tree] Trial with params {'max_depth': 2, 'min_samples_split': 13, 'min_samples_leaf': 4} took 2.38 seconds.
+[Decision Tree] Trial with params {'max_depth': 28, 'min_samples_split': 2, 'min_samples_leaf': 9} took 8.30 seconds.
+[Decision Tree] Trial with params {'max_depth': 23, 'min_samples_split': 7, 'min_samples_leaf': 13} took 7.57 seconds.
+[Decision Tree] Trial with params {'max_depth': 29, 'min_samples_split': 9, 'min_samples_leaf': 5} took 7.92 seconds.
+[Decision Tree] Trial with params {'max_depth': 27, 'min_samples_split': 10, 'min_samples_leaf': 4} took 8.90 seconds.
+[Decision Tree] Trial with params {'max_depth': 29, 'min_samples_split': 13, 'min_samples_leaf': 3} took 12.13 seconds.
+[Decision Tree] Trial with params {'max_depth': 29, 'min_samples_split': 12, 'min_samples_leaf': 3} took 10.90 seconds.
+[Decision Tree] Trial with params {'max_depth': 24, 'min_samples_split': 13, 'min_samples_leaf': 3} took 8.49 seconds.
+[Decision Tree] Trial with params {'max_depth': 20, 'min_samples_split': 13, 'min_samples_leaf': 2} took 7.22 seconds.
+[Decision Tree] Trial with params {'max_depth': 30, 'min_samples_split': 15, 'min_samples_leaf': 3} took 8.89 seconds.
+[Decision Tree] Trial with params {'max_depth': 30, 'min_samples_split': 16, 'min_samples_leaf': 8} took 8.62 seconds.
+[Decision Tree] Trial with params {'max_depth': 26, 'min_samples_split': 18, 'min_samples_leaf': 5} took 8.86 seconds.
+[Decision Tree] Trial with params {'max_depth': 32, 'min_samples_split': 15, 'min_samples_leaf': 1} took 8.36 seconds.
+[Decision Tree] Trial with params {'max_depth': 32, 'min_samples_split': 15, 'min_samples_leaf': 1} took 8.71 seconds.
+[Decision Tree] Trial with params {'max_depth': 25, 'min_samples_split': 15, 'min_samples_leaf': 1} took 7.77 seconds.
+Best params for Decision Tree: {'max_depth': 32, 'min_samples_split': 15, 'min_samples_leaf': 1}
+Total optimization time: 225.83 seconds.
+
+Avaliação no conjunto de teste:
+RMSE: 0.16
+MAE: 0.09
+R²: 0.98
+[Random Forest] Trial with params {'n_estimators': 250, 'max_depth': 18, 'min_samples_split': 13, 'min_samples_leaf': 5, 'max_features': None} took 971.24 seconds.
+[Random Forest] Trial with params {'n_estimators': 100, 'max_depth': 15, 'min_samples_split': 13, 'min_samples_leaf': 3, 'max_features': 'sqrt'} took 69.73 seconds.
+[Random Forest] Trial with params {'n_estimators': 200, 'max_depth': 7, 'min_samples_split': 10, 'min_samples_leaf': 11, 'max_features': 'sqrt'} took 65.86 seconds.
+[Random Forest] Trial with params {'n_estimators': 300, 'max_depth': 23, 'min_samples_split': 15, 'min_samples_leaf': 12, 'max_features': None} took 1268.52 seconds.
+[Random Forest] Trial with params {'n_estimators': 200, 'max_depth': 19, 'min_samples_split': 4, 'min_samples_leaf': 13, 'max_features': None} took 735.92 seconds.
+[Random Forest] Trial with params {'n_estimators': 100, 'max_depth': 6, 'min_samples_split': 18, 'min_samples_leaf': 10, 'max_features': 'sqrt'} took 28.96 seconds.
+[Random Forest] Trial with params {'n_estimators': 250, 'max_depth': 11, 'min_samples_split': 18, 'min_samples_leaf': 5, 'max_features': 'sqrt'} took 121.94 seconds.
+[Random Forest] Trial with params {'n_estimators': 250, 'max_depth': 13, 'min_samples_split': 4, 'min_samples_leaf': 17, 'max_features': 'sqrt'} took 141.48 seconds.
+[Random Forest] Trial with params {'n_estimators': 250, 'max_depth': 24, 'min_samples_split': 10, 'min_samples_leaf': 16, 'max_features': None} took 1022.14 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 30, 'min_samples_split': 3, 'min_samples_leaf': 4, 'max_features': None} took 700.51 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 29, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': 'log2'} took 169.66 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 30, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': 'log2'} took 172.87 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 30, 'min_samples_split': 6, 'min_samples_leaf': 1, 'max_features': 'log2'} took 152.43 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 26, 'min_samples_split': 7, 'min_samples_leaf': 8, 'max_features': 'log2'} took 119.96 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 27, 'min_samples_split': 7, 'min_samples_leaf': 1, 'max_features': 'log2'} took 140.63 seconds.
+[Random Forest] Trial with params {'n_estimators': 100, 'max_depth': 21, 'min_samples_split': 7, 'min_samples_leaf': 20, 'max_features': 'log2'} took 68.17 seconds.
+[Random Forest] Trial with params {'n_estimators': 200, 'max_depth': 30, 'min_samples_split': 6, 'min_samples_leaf': 7, 'max_features': 'log2'} took 170.47 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 26, 'min_samples_split': 5, 'min_samples_leaf': 1, 'max_features': 'log2'} took 142.34 seconds.
+[Random Forest] Trial with params {'n_estimators': 100, 'max_depth': 22, 'min_samples_split': 2, 'min_samples_leaf': 7, 'max_features': 'log2'} took 75.66 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 27, 'min_samples_split': 9, 'min_samples_leaf': 4, 'max_features': 'log2'} took 130.52 seconds.
+[Random Forest] Trial with params {'n_estimators': 200, 'max_depth': 25, 'min_samples_split': 5, 'min_samples_leaf': 3, 'max_features': 'log2'} took 174.95 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 30, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': 'log2'} took 178.71 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 28, 'min_samples_split': 2, 'min_samples_leaf': 2, 'max_features': 'log2'} took 151.14 seconds.
+[Random Forest] Trial with params {'n_estimators': 100, 'max_depth': 30, 'min_samples_split': 4, 'min_samples_leaf': 6, 'max_features': 'log2'} took 87.43 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 20, 'min_samples_split': 8, 'min_samples_leaf': 9, 'max_features': 'log2'} took 105.16 seconds.
+[Random Forest] Trial with params {'n_estimators': 200, 'max_depth': 28, 'min_samples_split': 3, 'min_samples_leaf': 3, 'max_features': 'log2'} took 183.63 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 24, 'min_samples_split': 6, 'min_samples_leaf': 1, 'max_features': 'log2'} took 132.02 seconds.
+[Random Forest] Trial with params {'n_estimators': 200, 'max_depth': 28, 'min_samples_split': 20, 'min_samples_leaf': 3, 'max_features': 'log2'} took 167.37 seconds.
+[Random Forest] Trial with params {'n_estimators': 100, 'max_depth': 15, 'min_samples_split': 3, 'min_samples_leaf': 6, 'max_features': 'log2'} took 57.36 seconds.
+[Random Forest] Trial with params {'n_estimators': 150, 'max_depth': 18, 'min_samples_split': 13, 'min_samples_leaf': 5, 'max_features': 'log2'} took 104.88 seconds.
+Best params for Random Forest: {'n_estimators': 150, 'max_depth': 30, 'min_samples_split': 2, 'min_samples_leaf': 1, 'max_features': 'log2'}
+Total optimization time: 7812.00 seconds.
+
+Avaliação no conjunto de teste:
+RMSE: 0.15
+MAE: 0.09
+R²: 0.98
