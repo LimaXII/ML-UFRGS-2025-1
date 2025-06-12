@@ -60,8 +60,21 @@ def optimize_decision_tree(X, y, n_trials=30):
             trial_times.append(end - start)
             trial_scores.append(score)
 
+            # Treinar e avaliar no conjunto de teste
+            pipeline.fit(X_trainval, y_trainval)
+            y_pred = pipeline.predict(X_test)
+            rmse = np.sqrt(mean_squared_error(y_test, y_pred))
+            mae = mean_absolute_error(y_test, y_pred)
+            r2 = r2_score(y_test, y_pred)
+
             f_out.write(
-                f"[Decision Tree] Trial with params {params} took {end - start:.2f} seconds.\n")
+                f"[Decision Tree] Trial com params {params} levou {end - start:.2f} segundos.\n")
+            f_out.write(f"Score (neg_MSE): {score:.4f}\n")
+            f_out.write("Avaliação no conjunto de teste:\n")
+            f_out.write(f"RMSE: {rmse:.2f}\n")
+            f_out.write(f"MAE: {mae:.2f}\n")
+            f_out.write(f"R²: {r2:.2f}\n\n")
+
             return score
 
         study = optuna.create_study(direction="maximize")
@@ -69,9 +82,10 @@ def optimize_decision_tree(X, y, n_trials=30):
         study.optimize(objective, n_trials=n_trials)
         total_end = time.time()
 
-        f_out.write(f"Best params for Decision Tree: {study.best_params}\n")
         f_out.write(
-            f"Total optimization time: {total_end - total_start:.2f} seconds.\n")
+            f"Melhores parâmetros Decision Tree: {study.best_params}\n")
+        f_out.write(
+            f"Tempo total de otimização: {total_end - total_start:.2f} segundos.\n\n")
 
     final_pipeline = Pipeline([
         ("scaler", StandardScaler()),
@@ -121,6 +135,8 @@ def optimize_random_forest(X, y, n_trials=30):
 
             f_out.write(
                 f"[Random Forest] Trial with params {params} took {end - start:.2f} seconds.\n")
+            f_out.write(f"Score (neg_MSE): {score:.4f}\n\n")
+
             return score
 
         study = optuna.create_study(direction="maximize")
