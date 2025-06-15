@@ -1,0 +1,26 @@
+--- Modelo: Decision Tree (Padrão) ---
+RMSE: 3391.85
+MAE:  1148.59
+R²:   0.98
+-----------------------------------
+Treinando Decision Tree (Otimizado)...
+
+--- Modelo: Decision Tree (Otimizado) ---
+RMSE: 3211.97
+MAE:  1437.19
+R²:   0.98
+-----------------------------------
+Treinando Random Forest (Padrão)...
+
+--- Modelo: Random Forest (Padrão) ---
+RMSE: 2709.44
+MAE:  1053.85
+R²:   0.99
+-----------------------------------
+Treinando Random Forest (Otimizado)...
+
+--- Modelo: Random Forest (Otimizado) ---
+RMSE: 2984.39
+MAE:  1373.75
+R²:   0.98
+-----------------------------------

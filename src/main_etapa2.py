@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 
 from models.hyperopt import optimize_decision_tree, optimize_random_forest
-from models.final_model import analyze_final_model
+from models.final_model import compare_final_models
 
 # from preprocessing import preprocessing
 
@@ -57,6 +57,13 @@ X, y = splitData(df=df)
 # best_dt = optimize_decision_tree(X, y)
 # best_rf = optimize_random_forest(X, y)
 
+
+best_dt_params = {
+    'max_depth': 32,
+    'min_samples_split': 2,
+    'min_samples_leaf': 6
+}
+
 # Melhores parametros encontrados para o Random Forest
 best_rf_params = {
     'n_estimators': 100,
@@ -66,4 +73,4 @@ best_rf_params = {
     'max_features': None
 }
 
-analyze_final_model(X, y, best_rf_params)
+compare_final_models(X, y, best_dt_params, best_rf_params)
